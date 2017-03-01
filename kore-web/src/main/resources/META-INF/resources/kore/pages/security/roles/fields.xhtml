@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:inputHidden id="id" value="#{roleBean.entity.id}" />
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <h:outputLabel for="label" value="#{msg['core.pages.roles.fields.label']}"/>
+                    <p:inputText id="label" required="true" class="form-control"  
+                                 placeholder="#{msg['core.pages.roles.fields.label']}" 
+                                 label="#{msg['core.pages.roles.fields.label']}"
+                                 value="#{roleBean.entity.label}"/>
+                </div>
+                <div class="col-xs-12">
+                    <h:outputLabel value="#{msg['core.pages.roles.fields.permissions']}"/>
+
+                    <!--<div class="ui-datatable ui-widget">
+                        <div class="ui-datatable-tablewrapper">-->
+                    <div class="table-responsive">
+                        <table role="grid" class="table table-condensed table-striped">
+                            <!--<thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Permission</th>
+                                </tr>
+                            </thead>-->
+                            <tbody class="ui-datatable-data ui-widget-content">
+                                <ui:repeat value="#{roleBean.permissionCategories}" var="pc">
+                                    <tr>
+                                        <th style="width: 45px"></th>
+                                        <th>
+                                            <h:outputText value="#{pc.label}"/>
+                                        </th>
+                                    </tr>
+                                    <ui:repeat value="#{roleBean.getPermissions(pc)}" var="p">
+                                        <tr>
+                                            <td style="width: 45px">
+                                                <h:selectBooleanCheckbox value="#{roleBean.checkMap[p.code]}"/>
+                                            </td>
+                                            <td>
+                                                <h:outputText value="#{p.label}"/>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+                                </ui:repeat>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--</div>
+                </div>-->
+                </div>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

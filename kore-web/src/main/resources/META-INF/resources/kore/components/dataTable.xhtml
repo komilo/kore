@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width"/>
+    </head>
+    <body>
+        <composite:interface>
+            <!--<composit:attribute name="value" required="true" type="java.lang.Object"/> -->
+            <composite:attribute name="showActions" type="java.lang.Boolean" default="true"/>
+            <composite:attribute name="crudBean" type="tg.komilo.kore.web.beans.GenericBean" required="true"/>
+            <composite:attribute name="emptyMessage"  default="#{msg['core.components.datatable.emptymessage']}"/>
+            <!--<composit:attribute name="filteredValue" type="java.util.List" default="#{null}"/>-->
+            <composite:attribute name="id" type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="lazy" default="true"/>
+            <composite:attribute name="paginator" default="true" type="java.lang.Boolean"/>
+            <composite:attribute name="paginatorPosition" type="java.lang.String" default="both"/>
+            <composite:attribute name="paginatorTemplate" type="java.lang.String" 
+                                 default="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"/>
+            <composite:attribute name="currentPageReportTemplate" type="java.lang.String"
+                                 default="Page {currentPage} sur {totalPages}, {totalRecords} enregistrements."/>
+            <composite:attribute name="rowKey" type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="rowSelectMode" type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="rows" default="10" type="java.lang.Integer"/>
+            <composite:attribute name="scrollable" type="java.lang.Boolean" default="false"/>
+            <composite:attribute name="selection" default="#{null}"/>
+            <composite:attribute name="scrollHeight" type="java.lang.Integer" default="#{null}"/>
+            <composite:attribute name="scrollRows" type="java.lang.Integer" default="#{null}"/>
+            <composite:attribute name="scrollWidth" type="java.lang.Integer" default="#{null}"/>
+            <composite:attribute name="selectionMode" type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="sortBy" default="#{null}" />
+            <composite:attribute name="sortField" type="java.lang.String" default="#{null}" />
+            <composite:attribute name="style"  type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="styleClass"  type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="rowStyleClass"  type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="widgetVar" type="java.lang.String" default="#{null}"/>
+            <composite:attribute name="stickyHeader" type="java.lang.Boolean" default="true"/>
+            <composite:attribute name="reflow" type="java.lang.Boolean" default="true"/>
+            <composite:attribute name="resizableColumns" type="java.lang.Boolean" default="true"/>
+            <composite:attribute name="draggableColumns" type="java.lang.Boolean" default="true"/>
+            <!--<composit:attribute name="methodCallForm" method-signature="void action()" required="true"/>-->
+        </composite:interface>
+
+        <composite:implementation>
+            <h:form>
+                <p:dataTable id="table" value="#{cc.attrs.crudBean.model}" var="item" rows="#{cc.attrs.rows}" 
+                             paginator="#{cc.attrs.paginator}" paginatorPosition="#{cc.attrs.paginatorPosition}" 
+                             rowKey="#{cc.attrs.rowKey}" reflow="#{cc.attrs.reflow}"
+                             emptyMessage="#{cc.attrs.emptyMessage}" lazy="#{cc.attrs.lazy}"
+                             resizableColumns="#{cc.attrs.resizableColumns}" stickyHeader="#{cc.attrs.stickyHeader}"
+                             draggableColumns="#{cc.attrs.draggableColumns}"
+                             paginatorTemplate="#{cc.attrs.paginatorTemplate}" 
+                             currentPageReportTemplate="#{cc.attrs.currentPageReportTemplate}"
+                             rowStyleClass="#{cc.attrs.rowStyleClass}" 
+                             rowSelectMode="#{cc.attrs.rowSelectMode}">
+                    <f:facet name="header">
+                        <p:commandButton id="toggler" type="button" value="#{msg['core.components.datatable.toggler']}"
+                                         style="float:right; padding: 2px;" icon="ui-icon-calculator"/>
+                        <p:columnToggler datasource="@this:@parent:@parent" trigger="toggler"/>
+
+                        <!--<b:buttonGroup style="float: right; margin-right: 6px;">-->
+                        <div class="btn-group pull-right" role="group" aria-label="Export" 
+                             style="margin-right: 6px">
+                            <h:commandLink title="Exporter en PDF" class="btn btn-default">
+                                <p:dataExporter type="pdf" target="table" fileName="liste" />
+                                <i class="fa fa-file-pdf-o text-red"></i> PDF
+                            </h:commandLink>
+                            <h:commandLink title="Exporter en Excel" class="btn btn-default">
+                                <p:dataExporter type="xls" target="table" fileName="liste" />
+                                <i class="fa fa-file-excel-o text-green"></i> XLS
+                            </h:commandLink>
+                            <h:commandLink title="Exporter en CSV" class="btn btn-default">
+                                <p:dataExporter type="csv" target="table" fileName="liste" />
+                                <i class="fa fa-file-text-o text-olive"></i> CSV
+                            </h:commandLink>
+                            <h:commandLink title="Exporter en XML" class="btn btn-default">
+                                <p:dataExporter type="xml" target="table" fileName="liste" />
+                                <i class="fa fa-file-code-o text-gray"></i> XML
+                            </h:commandLink>
+                        </div>
+                        <!--</b:buttonGroup>-->
+
+                        <!--<b:dropButton value="Exporter" style="float: right">
+                            <b:navCommandLink value="PDF">
+                                <p:dataExporter type="pdf" target="table" fileName="liste" />
+                            </b:navCommandLink>
+                            <b:navCommandLink value="XLS">
+                                <p:dataExporter type="xls" target="table" fileName="liste" />
+                            </b:navCommandLink>
+                            <b:navCommandLink value="CSV">
+                                <p:dataExporter type="csv" target="table" fileName="liste" />
+                            </b:navCommandLink>
+                            <b:navCommandLink value="XML">
+                                <p:dataExporter type="xml" target="table" fileName="liste" />
+                            </b:navCommandLink>
+                        </b:dropButton>
+                        
+                        <p:splitButton value="Exporter" icon="ui-icon-disk" style="float: right">
+                            <p:menuitem value="PDF">
+                                <p:dataExporter type="pdf" target="table" fileName="liste" />
+                            </p:menuitem>
+                            <p:menuitem value="XLS">
+                                <p:dataExporter type="xls" target="table" fileName="liste" />
+                            </p:menuitem>
+                            <p:menuitem value="CSV">
+                                <p:dataExporter type="csv" target="table" fileName="liste" />
+                            </p:menuitem>
+                            <p:menuitem value="XML">
+                                <p:dataExporter type="xml" target="table" fileName="liste" />
+                            </p:menuitem>
+                        </p:splitButton>-->
+                        <div style="clear: both"/>
+                    </f:facet>
+
+                    <composite:insertChildren />
+
+                    <p:column headerText="#{msg['core.components.datatable.operations']}"
+                              rendered="#{cc.attrs.showActions}" exportable="false">
+
+                        <h:link includeViewParams="true" rendered="#{cc.attrs.crudBean.canUpdate()}"
+                                title="#{msg['core.components.datatable.operations.edit']}"
+                                outcome="edit" class="btn btn-default">
+                            <f:param name="entityId" value="#{cc.attrs.crudBean.getId(item)}"/>
+                            <i class="fa fa-edit text-info"></i>
+                        </h:link>
+                        
+                        <h:commandLink title="#{msg['core.components.datatable.operations.delete']}"
+                                       rendered="#{cc.attrs.crudBean.canDelete()}"
+                                       actionListener="#{cc.attrs.crudBean.delete(item)}"
+                                       class="btn btn-default">
+                            <i class="fa fa-remove text-danger"></i>
+                        </h:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <!--<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>-->
+
+
+            <p:dialog header="Confirmation" widgetVar="deleteDialog" resizable="false" id="deleteDlg"
+                      showEffect="fade" hideEffect="explode" modal="true">
+
+                <!--<h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                    <h:outputText value="Name:" />
+                    <h:outputText value="" style="font-weight:bold"/>-->  
+                <div>
+                    <h:outputText value="#{msg['core.components.datatable.operations.delete.confirmmessage']}"/>
+                </div>
+                <div>
+                    <p:commandButton id="yesButton" action="#{cc.attrs.crudBean.delete(cc.attrs.crudBean.entity)}" oncomplete="deleteDialog.hide()" 
+                                     update="table" value="Oui"/>
+                    <p:commandButton id="noButton" onclick="deleteDialog.hide()" value="Non"/>
+                </div>
+                <!--</h:panelGrid>-->
+
+            </p:dialog>
+        </composite:implementation>
+    </body>
+</html>

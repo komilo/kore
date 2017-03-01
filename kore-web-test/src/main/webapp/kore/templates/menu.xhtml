@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <li class="active treeview">
+                <a href="#">
+                    <i class="fa fa-h-square"></i>
+                    <span>Frais médicaux</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="activex">
+                        <h:link outcome="/index">
+                            <i class="fa fa-circle-o"></i> Page 1
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:link outcome="/index">
+                            <i class="fa fa-circle-o"></i> Page 2
+                        </h:link>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-gears"></i>
+                    <span>Administration</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li jsf:rendered="#{applicationBean.canAccessUsers()}">
+                        <h:link outcome="/kore/pages/security/users/list">
+                            <i class="fa fa-users"></i> Utilisateurs
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:link outcome="/kore/pages/security/roles/list">
+                            <i class="fa fa-circle-o"></i> Rôles
+                        </h:link>
+                    </li>
+                    <li>
+                        <h:link outcome="/kore/pages/security/logs/list">
+                            <i class="fa fa-list"></i> Journal
+                        </h:link>
+                    </li>
+                </ul>
+            </li>
+
+            <ui:remove>
+                <!--<p:submenu label="Administration" icon="fa fa-cogs">
+                    <p:menuitem value="Utilisateurs" outcome="/core/pages/users/list"
+                                rendered="#{applicationBean.canAccessUsers()}"
+                                icon="fa fa-users"/>
+                    <p:menuitem value="Rôles" outcome="/core/pages/roles/list"
+                                rendered="#{applicationBean.canAccessRoles()}"
+                                icon="fa fa-user-secret"/>
+                    <p:separator/>
+                    <p:menuitem value="Journal" outcome="/core/pages/logs/list"
+                                rendered="#{applicationBean.canAccessLogs()}"
+                                icon="fa fa-file-text"/>
+                    <p:menuitem value="Sauvegarder" outcome="/core/pages/backup/backup"
+                                rendered="#{applicationBean.canAccessBackupBackup()}"
+                                icon="fa fa-save"/>
+                </p:submenu>-->
+            </ui:remove>
+        </ui:composition>
+    </h:body>
+</html>
+
