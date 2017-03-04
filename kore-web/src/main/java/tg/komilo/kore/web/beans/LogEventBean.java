@@ -6,6 +6,7 @@
 package tg.komilo.kore.web.beans;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -25,7 +26,14 @@ public class LogEventBean implements Serializable {
     @EJB
     private LogEventServiceBeanRemote service;
     
+    private DataModel<LogEvent> model;
+    
+    @PostConstruct
+    public void init() {
+        this.model = new GenericDataModel<>(this.service);
+    }
+    
     public DataModel<LogEvent> getModel() {
-        return new GenericDataModel<>(this.service);
+        return this.model;
     }
 }
