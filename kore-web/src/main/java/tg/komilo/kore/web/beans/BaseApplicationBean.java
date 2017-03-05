@@ -20,7 +20,7 @@ import tg.komilo.kore.utils.KoreConstants;
 public abstract class BaseApplicationBean implements Serializable {
 
     @EJB
-    private UserServiceBeanRemote userService;
+    protected UserServiceBeanRemote userService;
     
     @EJB
     private UserSessionServiceBeanRemote userSessionService;

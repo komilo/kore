@@ -1,0 +1,4 @@
+/kore-api/target/
+/kore-impl/target/
+/kore-web/target/
+/kore-web-test/target/
