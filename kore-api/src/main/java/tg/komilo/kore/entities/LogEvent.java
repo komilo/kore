@@ -35,7 +35,7 @@ public class LogEvent extends BaseEntity {
     private String message;
 
     @Column(name = "event_date", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date eventDate;
     
     @Column(name = "client_host", nullable = true)

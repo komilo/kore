@@ -42,42 +42,42 @@ public class LogServiceBean implements LogServiceBeanRemote {
 
     @Override
     public void debug(String message) {
-        this.log(message, null, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, null, LogLevel.LOG_LEVEL_DEBUG_ID);
     }
 
     @Override
     public void debug(String message, String categoryCode) {
-        this.log(message, categoryCode, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, categoryCode, LogLevel.LOG_LEVEL_DEBUG_ID);
     }
 
     @Override
     public void info(String message) {
-        this.log(message, null, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, null, LogLevel.LOG_LEVEL_INFO_ID);
     }
 
     @Override
     public void info(String message, String categoryCode) {
-        this.log(message, categoryCode, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, categoryCode, LogLevel.LOG_LEVEL_INFO_ID);
     }
 
     @Override
     public void warn(String message) {
-        this.log(message, null, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, null, LogLevel.LOG_LEVEL_WARNING_ID);
     }
 
     @Override
     public void warn(String message, String categoryCode) {
-        this.log(message, categoryCode, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, categoryCode, LogLevel.LOG_LEVEL_WARNING_ID);
     }
 
     @Override
     public void error(String message) {
-        this.log(message, null, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, null, LogLevel.LOG_LEVEL_ERROR_ID);
     }
 
     @Override
     public void error(String message, String categoryCode) {
-        this.log(message, categoryCode, LogLevel.LOG_LEVEL_TRACE_ID);
+        this.log(message, categoryCode, LogLevel.LOG_LEVEL_ERROR_ID);
     }
 
     private void log(String message, String categoryCode, Integer levelId) {
